@@ -58,6 +58,7 @@ jobs:
   github-release:
     name: >-
       Create a GitHub Release
+    if: github.event_name == 'push'
     needs:
       - publish-to-testpypi
     runs-on: ubuntu-latest
