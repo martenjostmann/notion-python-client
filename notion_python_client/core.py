@@ -1,5 +1,5 @@
 from notion_python_client.client import Client
-from notion_python_client.handlers import DatabaseHandler
+from notion_python_client.handlers import DatabaseHandler, PageHandler
 from notion_python_client.constants import API_BASE_URL, API_VERSION
 
 
@@ -12,3 +12,4 @@ class NPC:
         )
 
         self.database_handler = DatabaseHandler(self._client, "/databases")
+        self.page_handler = PageHandler(self._client, "/pages")
