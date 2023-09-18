@@ -16,3 +16,5 @@ dist/
 
 # Virtual Environment
 .venv
+
+main.py
