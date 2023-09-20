@@ -21,9 +21,10 @@ class PageHandler(Handler):
         """
 
         path = f'/{page_id}'
+        resp = self._make_request("GET", path)
 
         # Make the request
-        return Page.model_validate(self._make_request("GET", path))
+        return Page.model_validate(resp)
 
     def update_page(self, page_id: str, updates: Dict) -> Dict:
         """Update a specifc page with the content in the updates dict

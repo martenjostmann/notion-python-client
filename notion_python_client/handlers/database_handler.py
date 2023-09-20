@@ -1,6 +1,7 @@
 from typing import Dict, Optional
 
 from notion_python_client.handlers.handler import Handler
+from notion_python_client.models.page import Page
 
 
 class DatabaseHandler(Handler):
@@ -28,11 +29,11 @@ class DatabaseHandler(Handler):
 
         # Make the request
         database = self._make_request("POST", path, json=body)
-
+        print(database)
         pages = []
 
         if "object" in database and database["object"] == "list":
-
-            pages.extend(database["results"])
+            for page in database["results"]:
+                pages.append(Page.model_validate(page))
 
         return pages

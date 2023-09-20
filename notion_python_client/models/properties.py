@@ -8,6 +8,7 @@ import inspect
 from notion_python_client.models.user import User
 from notion_python_client.models.file import File
 from notion_python_client.models.rich_text import RichText
+from notion_python_client.models.page_reference import PageReference
 
 
 class PatchedModel(BaseModel):
@@ -36,9 +37,9 @@ class PropertiesDictBase(BaseModel):
     id: Optional[str] = Field(default=None)
     type: Optional[Literal["checkbox", "created_by",
                            "created_time", "date", "email", "files",
-                           "formula", "last_edited_by", "multi_select",
-                           "number", "people", "phone_number", "relation",
-                           "rollup", "select", "title", "url", "status"]] = Field(default=None)
+                           "formula", "last_edited_by", "last_edited_time", "multi_select",
+                           "number", "people", "phone_number", "relation", "rich_text",
+                           "rollup", "select", "title", "url", "status", "unique_id", "url"]] = Field(default=None)
 
 
 class PropertiesBase(PatchedModel, ABC):
@@ -53,7 +54,7 @@ class PropertiesBase(PatchedModel, ABC):
             return d
 
 
-class Checkbox(PropertiesBase):
+class Checkbox(PropertiesDictBase, PropertiesBase):
     checkbox: bool
 
     def create_object(self, property_name: str) -> Dict:
@@ -68,11 +69,7 @@ class Checkbox(PropertiesBase):
         return checkbox_cleaned
 
 
-class CheckboxDict(PropertiesDictBase):
-    checkbox: Checkbox
-
-
-class CreatedBy(PropertiesBase):
+class CreatedBy(PropertiesDictBase, PropertiesBase):
     created_by: User
 
     def create_object(self, property_name: str) -> Dict:
@@ -81,21 +78,13 @@ class CreatedBy(PropertiesBase):
         return None
 
 
-class CreatedByDict(PropertiesDictBase):
-    created_by: CreatedBy
-
-
-class CreatedTime(PropertiesBase):
+class CreatedTime(PropertiesDictBase, PropertiesBase):
     created_time: datetime
 
     def create_object(self, property_name: str) -> Dict:
         """The created_time property cannot be updated, so it is not included in the created_time object."""
 
         return None
-
-
-class CreatedTimeDict(PropertiesDictBase):
-    created_time: CreatedTime
 
 
 class Date(PropertiesBase):
@@ -121,7 +110,7 @@ class DateDict(PropertiesDictBase):
     date: Date
 
 
-class Email(PropertiesBase):
+class Email(PropertiesDictBase, PropertiesBase):
     email: str
 
     def create_object(self, property_name: str) -> Dict:
@@ -136,11 +125,7 @@ class Email(PropertiesBase):
         return email_cleaned
 
 
-class EmailDict(PropertiesDictBase):
-    email: Email
-
-
-class Files(PropertiesBase):
+class Files(PropertiesDictBase, PropertiesBase):
     files: List[File]
 
     def create_object(self, property_name: str) -> Dict:
@@ -157,12 +142,11 @@ class Files(PropertiesBase):
         return files_cleaned
 
 
-class FilesDict(PropertiesDictBase):
-    files: Files
-
-
 class Formula(PropertiesBase):
-    formula: Union[bool, datetime, float, int, str]
+    boolean: Optional[bool] = Field(default=None)
+    date: Optional[datetime] = Field(default=None)
+    number: Optional[Union[float, int]] = Field(default=None)
+    string: Optional[str] = Field(default=None)
     type: Literal["boolean", "date", "number", "string"]
 
     def create_object(self, property_name: str) -> Dict:
@@ -175,7 +159,7 @@ class FormulaDict(PropertiesDictBase):
     formula: Formula
 
 
-class LastEditedBy(PropertiesBase):
+class LastEditedBy(PropertiesDictBase, PropertiesBase):
     last_edited_by: User
 
     def create_object(self, property_name: str) -> Dict:
@@ -184,148 +168,13 @@ class LastEditedBy(PropertiesBase):
         return None
 
 
-class LastEditedByDict(PropertiesDictBase):
-    last_edited_by: LastEditedBy
-
-
-class LastEditedTime(PropertiesBase):
+class LastEditedTime(PropertiesDictBase, PropertiesBase):
     last_edited_time: datetime
 
     def create_object(self, property_name: str) -> Dict:
         """The last_edited_time property cannot be updated, so it is not included in the last_edited_time object."""
 
         return None
-
-
-class LastEditedTimeDict(PropertiesDictBase):
-    last_edited_time: LastEditedTime
-
-
-class MultiSelect(PropertiesBase):
-    color: Optional[Literal["blue", "brown", "default", "gray", "green",
-                            "orange", "pink", "purple", "red", "yellow"]] = Field(default="default")
-    id: uuid.UUID = Field(default=None)
-    name: str = Field(default=None)
-
-    def create_object(self, property_name: str) -> Dict:
-        """Color cannot be updated, so it is not included in the multi_select object."""
-
-        multi_select = {
-            property_name: {
-                "multi_select": [
-                    {
-                        "id": self.id,
-                        "name": self.name
-                    }
-                ]
-            }
-        }
-
-        multi_select_cleaned = self.clean_none(multi_select)
-
-        return multi_select_cleaned
-
-
-class MultiSelectDict(PropertiesDictBase):
-    multi_select: MultiSelect
-
-
-class Number(PropertiesBase):
-    number: Union[float, int]
-
-    def create_object(self, property_name: str) -> Dict:
-        number = {
-            property_name: {
-                "number": self.number
-            }
-        }
-
-        number_cleaned = self.clean_none(number)
-
-        return number_cleaned
-
-
-class NumberDict(PropertiesDictBase):
-    number: Number
-
-
-class People(PropertiesBase):
-    people: List[User]
-
-    def create_object(self, property_name: str) -> Dict:
-        people = {
-            property_name: {
-                "people": self.people
-            }
-        }
-
-        people_cleaned = self.clean_none(people)
-
-        return people_cleaned
-
-
-class PeopleDict(PropertiesDictBase):
-    people: People
-
-
-class PhoneNumber(PropertiesBase):
-    phone_number: str
-
-    def create_object(self, property_name: str) -> Dict:
-        phone_number = {
-            property_name: {
-                "phone_number": self.phone_number
-            }
-        }
-
-        phone_number_cleaned = self.clean_none(phone_number)
-
-        return phone_number_cleaned
-
-
-class PhoneNumberDict(PropertiesDictBase):
-    phone_number: PhoneNumber
-
-
-class Relation(PropertiesBase):
-    has_more: bool = Field(default=False)
-    relation: List[str]
-
-    def create_object(self, property_name: str) -> Dict:
-
-        relation = {
-            property_name: {
-                "relation": [{"id": r} for r in self.relation]
-            }
-        }
-
-        relation_cleaned = self.clean_none(relation)
-
-        return relation_cleaned
-
-
-class RelationDict(PropertiesDictBase):
-    relation: Relation
-
-
-class RichTextProp(PropertiesBase):
-    rich_text: List[RichText]
-
-    def create_object(self, property_name: str) -> Dict:
-
-        rich_text = {
-            property_name: {
-                "rich_text": self.rich_text
-            }
-        }
-
-        rich_text_cleaned = self.clean_none(rich_text)
-
-        return rich_text_cleaned
-
-
-class RichTextPropDict(PropertiesDictBase):
-    rich_text: RichTextProp
 
 
 class Select(PropertiesBase):
@@ -367,6 +216,88 @@ class SelectDict(PropertiesDictBase):
     select: Select
 
 
+class MultiSelectDict(PropertiesDictBase):
+    multi_select: List[Select]
+
+
+class Number(PropertiesDictBase, PropertiesBase):
+    number: Union[float, int]
+
+    def create_object(self, property_name: str) -> Dict:
+        number = {
+            property_name: {
+                "number": self.number
+            }
+        }
+
+        number_cleaned = self.clean_none(number)
+
+        return number_cleaned
+
+
+class People(PropertiesDictBase, PropertiesBase):
+    people: List[User]
+
+    def create_object(self, property_name: str) -> Dict:
+        people = {
+            property_name: {
+                "people": self.people
+            }
+        }
+
+        people_cleaned = self.clean_none(people)
+
+        return people_cleaned
+
+
+class PhoneNumber(PropertiesDictBase, PropertiesBase):
+    phone_number: str
+
+    def create_object(self, property_name: str) -> Dict:
+        phone_number = {
+            property_name: {
+                "phone_number": self.phone_number
+            }
+        }
+
+        phone_number_cleaned = self.clean_none(phone_number)
+
+        return phone_number_cleaned
+
+
+class Relation(PropertiesDictBase, PropertiesBase):
+    has_more: bool = Field(default=False)
+    relation: List[PageReference]
+
+    def create_object(self, property_name: str) -> Dict:
+
+        relation = {
+            property_name: {
+                "relation": [{"id": r} for r in self.relation]
+            }
+        }
+
+        relation_cleaned = self.clean_none(relation)
+
+        return relation_cleaned
+
+
+class RichTextProp(PropertiesDictBase, PropertiesBase):
+    rich_text: List[RichText]
+
+    def create_object(self, property_name: str) -> Dict:
+
+        rich_text = {
+            property_name: {
+                "rich_text": self.rich_text
+            }
+        }
+
+        rich_text_cleaned = self.clean_none(rich_text)
+
+        return rich_text_cleaned
+
+
 class Status(PropertiesBase):
     color_: Optional[Literal["blue", "brown", "default", "gray", "green",
                              "orange", "pink", "purple", "red", "yellow"]] = Field(default="default")
@@ -406,5 +337,54 @@ class StatusDict(PropertiesDictBase):
     status: Status
 
 
-if __name__ == "__main__":
-    print(Select(id=uuid.uuid4(), name="test", color="blue").color)
+class Title(PropertiesDictBase, PropertiesBase):
+    title: List[RichText]
+
+    def create_object(self, property_name: str) -> Dict:
+        title = {
+            property_name: {
+                "title": self.title
+            }
+        }
+
+        title_cleaned = self.clean_none(title)
+
+        return title_cleaned
+
+
+class URL(PropertiesDictBase, PropertiesBase):
+    url: str
+
+    def create_object(self, property_name: str) -> Dict:
+        url = {
+            property_name: {
+                "url": self.url
+            }
+        }
+
+        url_cleaned = self.clean_none(url)
+
+        return url_cleaned
+
+
+class UniqueId(PropertiesBase):
+    number: Union[float, int]
+    prefix: Optional[str] = Field(default=None)
+
+    def create_object(self, property_name: str) -> Dict:
+        unique_id = {
+            property_name: {
+                "unique_id": {
+                    "number": self.number,
+                    "prefix": self.prefix
+                }
+            }
+        }
+
+        unique_id_cleaned = self.clean_none(unique_id)
+
+        return unique_id_cleaned
+
+
+class UniqueIdDict(PropertiesDictBase):
+    unique_id: UniqueId

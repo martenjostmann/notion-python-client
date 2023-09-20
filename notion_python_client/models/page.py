@@ -17,7 +17,8 @@ class Page(BaseModel):
     last_edited_by: User
     icon: Optional[Union[File, Emoji]] = Field(default=None)
     cover: Optional[File] = Field(default=None)
-    properties: Dict[str, Union[DateDict, StatusDict]]
+    properties: Dict[str, Union[DateDict, StatusDict, Number, SelectDict, MultiSelectDict, People, Files, Checkbox,
+                                Email, PhoneNumber, FormulaDict, Relation, CreatedTime, CreatedBy, LastEditedTime, LastEditedBy, RichTextProp, Title, URL, UniqueIdDict]]
     url: str
     public_url: Optional[str] = Field(default=None)
 

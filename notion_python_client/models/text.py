@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 from notion_python_client.models.link import Link
@@ -6,4 +6,4 @@ from notion_python_client.models.link import Link
 
 class Text(BaseModel):
     content: str
-    link: Link
+    link: Optional[Link] = Field(default=None)
