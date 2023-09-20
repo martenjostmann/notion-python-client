@@ -2,10 +2,10 @@ from pydantic import BaseModel, Field
 
 from typing import Literal, Dict, Optional
 
-from equation import Equation
-from mention import Mention
-from text import Text
-from annotations import Annotation
+from notion_python_client.models.equation import Equation
+from notion_python_client.models.mention import Mention
+from notion_python_client.models.text import Text
+from notion_python_client.models.annotations import Annotation
 
 
 class RichText(BaseModel):

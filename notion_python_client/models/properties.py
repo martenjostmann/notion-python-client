@@ -5,9 +5,9 @@ from abc import ABC, abstractmethod
 import uuid
 import inspect
 
-from user import User
-from file import File
-from rich_text import RichText
+from notion_python_client.models.user import User
+from notion_python_client.models.file import File
+from notion_python_client.models.rich_text import RichText
 
 
 class PatchedModel(BaseModel):

@@ -1,12 +1,12 @@
 from pydantic import BaseModel, Field
 from typing import Literal, Optional
 
-from database_reference import DatabaseReference
-from date import Date
-from link import Link
-from page_reference import PageReference
-from template_reference import TemplateReference
-from user import User
+from notion_python_client.models.database_reference import DatabaseReference
+from notion_python_client.models.date import Date
+from notion_python_client.models.link import Link
+from notion_python_client.models.page_reference import PageReference
+from notion_python_client.models.template_reference import TemplateReference
+from notion_python_client.models.user import User
 
 
 class Mention(BaseModel):

@@ -5,6 +5,8 @@ from notion_python_client.exceptions import PageValidationException, PropertyNot
 from notion_python_client.validation import PAGE_SCHEMA
 from notion_python_client.handlers.handler import Handler
 
+from notion_python_client.models.page import Page
+
 
 class PageHandler(Handler):
 
@@ -21,7 +23,7 @@ class PageHandler(Handler):
         path = f'/{page_id}'
 
         # Make the request
-        return self._make_request("GET", path)
+        return Page.model_validate(self._make_request("GET", path))
 
     def update_page(self, page_id: str, updates: Dict) -> Dict:
         """Update a specifc page with the content in the updates dict

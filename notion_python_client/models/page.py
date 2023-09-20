@@ -2,10 +2,10 @@ from datetime import datetime
 from typing import Optional, Union, Dict
 
 from pydantic import BaseModel, Field
-from user import User
-from file import File
-from emoji import Emoji
-from properties import *
+from notion_python_client.models.user import User
+from notion_python_client.models.file import File
+from notion_python_client.models.emoji import Emoji
+from notion_python_client.models.properties import *
 
 
 class Page(BaseModel):
