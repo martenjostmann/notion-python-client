@@ -27,4 +27,4 @@ class Date(PropertiesBase):
 
 
 class DateDict(PropertiesDictBase):
-    date: Date
+    date: Optional[Date]

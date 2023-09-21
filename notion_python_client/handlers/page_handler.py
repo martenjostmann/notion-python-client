@@ -1,7 +1,7 @@
 from typing import Dict
 from cerberus import Validator
 
-from notion_python_client.exceptions import PageValidationException, PropertyNotIncludedException, PropertyTypeException
+from notion_python_client.exceptions import PropertyNotIncludedException, PropertyTypeException, RelationOutOfRangeException
 from notion_python_client.validation import PAGE_SCHEMA
 from notion_python_client.handlers.handler import Handler
 
@@ -87,7 +87,7 @@ class PageHandler(Handler):
 
         return Page.model_validate(resp)
 
-    def update_title(self, page_id: str, property_name: str, title: str) -> Dict:
+    def update_title(self, page_id: str, property_name: str, title: str) -> Page:
         """Updates the title property of a page
 
         Args:
@@ -102,49 +102,50 @@ class PageHandler(Handler):
         body = PropertiesBase.build_properties([Title(title=title).create_object(
             property_name=property_name)])
 
-        return self.update_page(page_id, body)
+        resp = self.update_page(page_id, body)
+        return Page.model_validate(resp)
 
-    def set_title_to_relation(self, page: Dict, relation_property_name: str, title_property_name: str) -> Dict:
+    def set_title_to_relation(self, page: Page, relation_property_name: str, title_property_name: str, relation_idx: int = 0) -> Page:
         """Sets the title of a page to the title of the relation
 
         Args:
-            page (Dict): The page that should be updated
+            page (Page): The page that should be updated
             relation_property_name (str): The name of the relation property
             title_property_name (str): The name of the title property. This property will be updated with the title of the relation
+            relation_idx (int, optional): The index of the relation that should be used. Can be used when multiple relations are available. Defaults to 0.
 
         Returns:
             Dict: The updated page
         """
 
-        validator = Validator(PAGE_SCHEMA, allow_unknown=True)
+        properties = page.properties
 
-        if validator.validate(page):
-            properties = page['properties']
+        if relation_property_name in properties:
+            _property = properties[relation_property_name]
 
-            if relation_property_name in properties:
-                _property = properties[relation_property_name]
+            if _property.type == 'relation':
+                relation = _property.relation
 
-                if _property['type'] == 'relation':
-                    relation = _property['relation']
+                # Check if relation is not empty
+                if len(relation) > 0:
+                    if len(relation) > relation_idx:
+                        relation_page = self.get_page(
+                            relation[relation_idx].id)
 
-                    # Check if relation is not empty
-                    if len(relation) > 0:
-                        relation_page = self.get_page(relation[0]['id'])
-
-                        if title_property_name in relation_page['properties']:
-                            title = relation_page['properties'][title_property_name]['title'][0]['text']['content']
-                            updated_page = self.update_title(
-                                page['id'], title_property_name, title)
+                        if title_property_name in relation_page.properties:
+                            title = relation_page.properties[title_property_name].title[0].text.content
+                            resp = self.update_title(
+                                page.id, title_property_name, title)
                         else:
                             raise PropertyNotIncludedException(
                                 title_property_name)
 
-                        return updated_page
+                        return Page.model_validate(resp)
+                    else:
+                        raise RelationOutOfRangeException(
+                            relation_idx, len(relation))
 
-                else:
-                    raise PropertyTypeException('relation', _property['type'])
             else:
-                raise PropertyNotIncludedException(relation_property_name)
+                raise PropertyTypeException('relation', _property['type'])
         else:
-            raise PageValidationException(
-                "The page provided is not a a Notion page")
+            raise PropertyNotIncludedException(relation_property_name)

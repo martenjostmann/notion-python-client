@@ -4,6 +4,7 @@ from notion_python_client.models.properties.properties_base import PropertiesBas
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 from notion_python_client.models.rich_text import RichText, Text
 
+
 class Title(PropertiesDictBase, PropertiesBase):
     title_: List[RichText]
 

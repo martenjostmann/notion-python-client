@@ -24,6 +24,15 @@ class PageValidationException(Exception):
         return f"PageValidationException: {self.message}"
 
 
+class RelationOutOfRangeException(Exception):
+    def __init__(self, relation_idx, relation_count):
+        self.relation_idx = relation_idx
+        self.relation_count = relation_count
+
+    def __str__(self):
+        return f"RelationOutOfRangeException: Relation index {self.relation_idx} is out of range. There are only {self.relation_count} relations available"
+
+
 class PropertyNotIncludedException(Exception):
     def __init__(self, property_name):
         self.property_name = property_name
