@@ -46,7 +46,7 @@ pages = client.database_handler.get_pages("YOUR_DATABASE_ID")
 
 ## Documentation
 
-For detailed documentation, please visit the NPC Documentation. (Coming Soon)
+For detailed documentation, please visit the [NPC Documentation](https://notion-python-client.readthedocs.io).
 
 ## Examples
 
