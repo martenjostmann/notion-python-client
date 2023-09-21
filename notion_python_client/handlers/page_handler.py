@@ -6,27 +6,31 @@ from notion_python_client.validation import PAGE_SCHEMA
 from notion_python_client.handlers.handler import Handler
 
 from notion_python_client.models.page import Page
+from notion_python_client.models.properties import Status, Title, PropertiesBase
+from notion_python_client.models.rich_text import RichText
+from notion_python_client.models.text import Text
 
 
 class PageHandler(Handler):
 
-    def get_page(self, page_id: str) -> Dict:
+    def get_page(self, page_id: str) -> Page:
         """Get a page with the given id
 
         Args:
             page_id (str): Page id of the page that should be retrieved
 
         Returns:
-            Dict: Retrieved page
+            Page: Retrieved page
         """
 
         path = f'/{page_id}'
-        resp = self._make_request("GET", path)
 
         # Make the request
+        resp = self._make_request("GET", path)
+
         return Page.model_validate(resp)
 
-    def update_page(self, page_id: str, updates: Dict) -> Dict:
+    def update_page(self, page_id: str, updates: Dict) -> Page:
         """Update a specifc page with the content in the updates dict
 
         Args:
@@ -34,17 +38,17 @@ class PageHandler(Handler):
             updates (Dict): The dict containing the updates
 
         Returns:
-            Dict: Updated page
+            Page: Updated page
         """
 
         path = f'/{page_id}'
 
         # Make the request
-        page = self._make_request("PATCH", path, json=updates)
+        resp = self._make_request("PATCH", path, json=updates)
 
-        return page
+        return Page.model_validate(resp)
 
-    def delete_page(self, page_id: str) -> Dict:
+    def delete_page(self, page_id: str) -> Page:
         """The deletion of a page is the equivalent of archiving it. Therefore, this method will just archive the page.
 
         Args:
@@ -58,11 +62,11 @@ class PageHandler(Handler):
             "archived": True
         }
 
-        page = self.update_page(page_id, body)
+        resp = self.update_page(page_id, body)
 
-        return page
+        return Page.model_validate(resp)
 
-    def update_status(self, page_id: str, property_name: str, status: str) -> Dict:
+    def update_status(self, page_id: str, property_name: str, status: str) -> Page:
         """Updates the status property of a page
 
         Args:
@@ -74,47 +78,29 @@ class PageHandler(Handler):
             Dict: The updated page
         """
 
-        body = {
-            "properties": {
-                property_name: {
-                    "id": "status",
-                    "type": "status",
-                    "status": {
-                        "name": status
-                    }
-                }
-            }
-        }
+        status_object = Status(id="status", name=status).create_object(
+            property_name=property_name)
 
-        return self.update_page(page_id, body)
+        body = PropertiesBase.build_properties(properties=[status_object])
 
-    def update_title(self, page_id: str, propery_name: str, title: str) -> Dict:
+        resp = self.update_page(page_id, body)
+
+        return Page.model_validate(resp)
+
+    def update_title(self, page_id: str, property_name: str, title: str) -> Dict:
         """Updates the title property of a page
 
         Args:
             page_id (str): Page id of the page that should be updated
-            propery_name (str): The name of the title property
+            property_name (str): The name of the title property
             title (str): The title that should be set
 
         Returns:
             Dict: The updated page
         """
 
-        body = {
-            "properties": {
-                propery_name: {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "text": {
-                                "content": title
-                            }
-                        }
-                    ]
-                }
-            }
-        }
+        body = PropertiesBase.build_properties([Title(title=title).create_object(
+            property_name=property_name)])
 
         return self.update_page(page_id, body)
 
