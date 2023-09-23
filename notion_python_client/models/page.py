@@ -5,12 +5,14 @@ from pydantic import BaseModel, Field
 from notion_python_client.models.user import User
 from notion_python_client.models.file import File
 from notion_python_client.models.emoji import Emoji
+from notion_python_client.models.parent import Parent
 from notion_python_client.models.properties import *
 
 
 class Page(BaseModel):
     object: str = Field(default="page")
     id: str
+    parent: Parent
     created_time: datetime
     last_edited_time: datetime
     created_by: User

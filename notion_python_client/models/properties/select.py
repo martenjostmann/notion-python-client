@@ -6,12 +6,11 @@ from notion_python_client.models.properties.properties_base import PropertiesBas
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
-
 class Select(PropertiesBase):
     color_: Optional[Literal["blue", "brown", "default", "gray", "green",
                              "orange", "pink", "purple", "red", "yellow"]] = Field(default="default")
-    id: uuid.UUID
-    name: str
+    id: Optional[uuid.UUID] = Field(default=None)
+    name: Optional[str] = Field(default=None)
 
     @property
     def color(self):
@@ -30,7 +29,7 @@ class Select(PropertiesBase):
 
         select = {
             property_name: {
-                "status": {
+                "select": {
                     "id": self.id,
                     "name": self.name,
                 }

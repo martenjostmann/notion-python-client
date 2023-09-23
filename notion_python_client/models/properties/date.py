@@ -8,7 +8,7 @@ from notion_python_client.models.properties.properties_base_dict import Properti
 
 
 class Date(PropertiesBase):
-    start: Union[datetime, date]
+    start: Optional[Union[datetime, date]]
     end: Optional[datetime] = Field(default=None)
 
     def create_object(self, property_name: str) -> Dict:
