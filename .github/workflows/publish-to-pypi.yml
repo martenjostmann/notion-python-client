@@ -1,4 +1,4 @@
-name: Publish Python 🐍 distribution 📦 TestPyPI
+name: Publish Python 🐍 distribution 📦 PyPI
 
 on:
   push:
@@ -37,10 +37,6 @@ jobs:
       - build
     runs-on: ubuntu-latest
 
-    environment:
-      name: testpypi
-      url: https://pypi.org/p/notion_python_client
-
     permissions:
       id-token: write # IMPORTANT: mandatory for trusted publishing
 
@@ -50,7 +46,7 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
-      - name: Publish distribution 📦 to TestPyPI
+      - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
   github-release:
