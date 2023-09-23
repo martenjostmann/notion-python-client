@@ -19,7 +19,7 @@ classifiers = [
 dynamic = ["dependencies"]
 
 [tool.setuptools.dynamic]
-dependencies = {file: ["requirements.txt"]}
+dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
 "Homepage" = "https://github.com/martenjostmann/notion-python-client"
