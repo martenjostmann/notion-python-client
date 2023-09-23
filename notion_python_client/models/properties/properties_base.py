@@ -1,7 +1,11 @@
 from pydantic import BaseModel
-from typing import Dict, no_type_check, List
+from typing import Dict, no_type_check, List, Union, Tuple
 from abc import ABC, abstractmethod
 import inspect
+
+
+class PropertiesBase:
+    pass
 
 
 class PatchedModel(BaseModel):
@@ -38,11 +42,15 @@ class PropertiesBase(PatchedModel, ABC):
             return d
 
     @staticmethod
-    def build_properties(properties: List[Dict]) -> Dict:
+    def build_properties(properties: List[Union[Dict, Tuple[PropertiesBase, str]]]) -> Dict:
         """Create a properties object from a list of properties that can be used to update a page.
 
         Args:
-            properties (List[Dict]): List of propertie dictionaries that were created by the create_object method of the property classes.
+            properties (List[Union[Dict, Tuple[PropertiesBase, str]]]): 
+                List of propertie dictionaries that were created by the create_object method of the property classes.
+                Or
+                List of tuples of a property class and a property name. 
+                The create_object method of the property class will be called with the property name as argument.
 
         Returns:
             Dict: Combined properties dictionary out of a list of properties.
@@ -50,6 +58,9 @@ class PropertiesBase(PatchedModel, ABC):
         properties_dict = {}
 
         for property in properties:
-            properties_dict.update(property)
+            if isinstance(property[0], PropertiesBase):
+                properties_dict.update(property[0].create_object(property[1]))
+            else:
+                properties_dict.update(property)
 
         return {"properties": properties_dict}
