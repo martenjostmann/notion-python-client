@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional, Union
 from cerberus import Validator
 
 from notion_python_client.exceptions import PropertyNotIncludedException, PropertyTypeException, RelationOutOfRangeException
@@ -9,6 +9,8 @@ from notion_python_client.models.page import Page
 from notion_python_client.models.properties import Status, Title, PropertiesBase
 from notion_python_client.models.rich_text import RichText
 from notion_python_client.models.text import Text
+from notion_python_client.models.file import File
+from notion_python_client.models.parent import Parent
 
 
 class PageHandler(Handler):
@@ -27,6 +29,51 @@ class PageHandler(Handler):
 
         # Make the request
         resp = self._make_request("GET", path)
+
+        return Page.model_validate(resp)
+
+    def create_page(self, parent_id: str, properties: Dict, cover: Optional[Union[File, Dict, str]] = None) -> Page:
+        """Create a new page with the given properties
+
+        Args:
+            parent_id (str): The id of the parent page
+            properties (Dict): The properties of the new page
+            cover (Optional[Union[File, Dict, str]]): 
+                The cover of the page. Can be a File object, a dict or a string. If a string is provided, 
+                it will be interpreted as a url. If a dict is provided, it will be interpreted as a File object. Defaults to None.
+
+        Returns:
+            Page: The created page
+        """
+
+        path = f''
+
+        if "properties" in properties:
+            properties = properties["properties"]
+
+        # Create the body
+        body = {
+            "properties": properties
+        }
+
+        # Insert parent information
+        body.update(Parent(database_id=parent_id).create_object())
+
+        # Check if cover is provided
+        if cover is not None:
+
+            # Create cover object if necessary
+            if isinstance(cover, dict):
+                cover = File.model_validate(cover)
+
+            elif isinstance(cover, str):
+                cover = File(type="external", external={
+                             "url": cover}).create_object()
+
+            properties.update(cover.create_object(property_name="cover"))
+
+        # Make the request
+        resp = self._make_request("POST", path, json=body)
 
         return Page.model_validate(resp)
 
