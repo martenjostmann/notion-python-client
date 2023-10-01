@@ -1,5 +1,5 @@
 from pydantic import Field
-from typing import Dict, List
+from typing import Dict, List, Literal
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
@@ -7,6 +7,7 @@ from notion_python_client.models.page_reference import PageReference
 
 
 class Relation(PropertiesDictBase, PropertiesBase):
+    type: Literal['relation'] = Field(default="relation")
     has_more: bool = Field(default=False)
     relation: List[PageReference]
 

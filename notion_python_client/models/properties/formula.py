@@ -20,4 +20,5 @@ class Formula(PropertiesBase):
 
 
 class FormulaDict(PropertiesDictBase):
+    type: Literal["formula"] = Field(default="formula")
     formula: Formula

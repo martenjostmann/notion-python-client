@@ -50,4 +50,5 @@ class Status(PropertiesBase):
 
 
 class StatusDict(PropertiesDictBase):
+    type: Literal['status'] = Field(default="status")
     status: Status

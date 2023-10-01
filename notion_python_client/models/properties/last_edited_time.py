@@ -1,11 +1,14 @@
-from typing import Dict
+from typing import Dict, Literal
 from datetime import datetime
+
+from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
 class LastEditedTime(PropertiesDictBase, PropertiesBase):
+    type: Literal['last_edited_time'] = Field(default="last_edited_time")
     last_edited_time: datetime
 
     def create_object(self, property_name: str) -> Dict:

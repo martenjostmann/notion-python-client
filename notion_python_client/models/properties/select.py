@@ -1,6 +1,6 @@
 from pydantic import Field
 from typing import Dict, Optional, Literal
-import uuid
+
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
@@ -9,7 +9,7 @@ from notion_python_client.models.properties.properties_base_dict import Properti
 class Select(PropertiesBase):
     color_: Optional[Literal["blue", "brown", "default", "gray", "green",
                              "orange", "pink", "purple", "red", "yellow"]] = Field(default="default")
-    id: Optional[uuid.UUID] = Field(default=None)
+    id: Optional[str] = Field(default=None)
     name: Optional[str] = Field(default=None)
 
     @property
@@ -42,4 +42,5 @@ class Select(PropertiesBase):
 
 
 class SelectDict(PropertiesDictBase):
+    type: Literal['select'] = Field(default="select")
     select: Select

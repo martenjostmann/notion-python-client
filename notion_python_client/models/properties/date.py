@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union, Literal
 from datetime import datetime, date
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
@@ -27,4 +27,5 @@ class Date(PropertiesBase):
 
 
 class DateDict(PropertiesDictBase):
-    date: Optional[Date]
+    type: Literal['date'] = Field(default="date")
+    date: Optional[Date] = Field(default=None)

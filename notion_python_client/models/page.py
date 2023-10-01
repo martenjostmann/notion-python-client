@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Union, Dict
+from typing import Optional, Union, Dict, Annotated
 
 from pydantic import BaseModel, Field
 from notion_python_client.models.user import User
@@ -19,7 +19,7 @@ class Page(BaseModel):
     last_edited_by: User
     icon: Optional[Union[File, Emoji]] = Field(default=None)
     cover: Optional[File] = Field(default=None)
-    properties: Dict[str, Union[DateDict, StatusDict, Number, SelectDict, MultiSelectDict, People, Files, Checkbox,
-                                Email, PhoneNumber, FormulaDict, Relation, CreatedTime, CreatedBy, LastEditedTime, LastEditedBy, RichTextProp, Title, URL, UniqueIdDict]]
+    properties: Dict[str, Annotated[Union[DateDict, StatusDict, Number, SelectDict, MultiSelectDict, People, Files, Checkbox,
+                                          Email, PhoneNumber, FormulaDict, Relation, CreatedTime, CreatedBy, LastEditedTime, LastEditedBy, RichTextProp, Title, URL, UniqueIdDict], Field(discriminator="type")]]
     url: str
     public_url: Optional[str] = Field(default=None)

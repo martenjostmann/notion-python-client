@@ -1,4 +1,5 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Literal
+from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
@@ -6,6 +7,7 @@ from notion_python_client.models.rich_text import RichText, Text
 
 
 class Title(PropertiesDictBase, PropertiesBase):
+    type: Literal['title'] = Field(default="title")
     title_: List[RichText]
 
     def __init__(self, title: Union[str, List[RichText]], **kwargs):

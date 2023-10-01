@@ -1,4 +1,4 @@
-from typing import Dict, Union, Optional
+from typing import Dict, Union, Optional, Literal
 from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
@@ -6,6 +6,7 @@ from notion_python_client.models.properties.properties_base_dict import Properti
 
 
 class Number(PropertiesDictBase, PropertiesBase):
+    type: Literal['number'] = Field(default="number")
     number: Optional[Union[float, int]] = Field(default=None)
 
     def create_object(self, property_name: str) -> Dict:

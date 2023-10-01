@@ -1,5 +1,5 @@
 from pydantic import Field
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union, Literal
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
@@ -25,4 +25,5 @@ class UniqueId(PropertiesBase):
 
 
 class UniqueIdDict(PropertiesDictBase):
+    type: Literal['unique_id'] = Field(default="unique_id")
     unique_id: UniqueId
