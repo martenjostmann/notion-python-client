@@ -12,11 +12,21 @@ class Date(PropertiesBase):
     end: Optional[datetime] = Field(default=None)
 
     def create_object(self, property_name: str) -> Dict:
+
+        _start = None
+        _end = None
+
+        if self.start is not None:
+            _start = self.start.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+
+        if self.end is not None:
+            _end = self.end.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+
         date = {
             property_name: {
                 "date": {
-                    "start": self.start,
-                    "end": self.end
+                    "start": _start,
+                    "end": _end
                 }
             }
         }

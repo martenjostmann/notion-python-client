@@ -34,7 +34,6 @@ class DatabaseHandler(Handler):
 
         if "object" in database and database["object"] == "list":
             for page in database["results"]:
-                print(page)
                 pages.append(Page.model_validate(page))
 
         return pages
