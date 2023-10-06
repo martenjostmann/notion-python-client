@@ -10,7 +10,7 @@ from .formula import Formula, FormulaDict
 from .last_edited_by import LastEditedBy
 from .last_edited_time import LastEditedTime
 from .select import Select, SelectDict
-from .multi_select import MultiSelectDict
+from .multi_select import MultiSelect
 from .number import Number
 from .people import People
 from .phone_number import PhoneNumber

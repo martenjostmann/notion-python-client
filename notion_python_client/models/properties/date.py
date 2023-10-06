@@ -39,3 +39,6 @@ class Date(PropertiesBase):
 class DateDict(PropertiesDictBase):
     type: Literal['date'] = Field(default="date")
     date: Optional[Date] = Field(default=None)
+
+    def _get_base(self) -> PropertiesBase:
+        return self.date

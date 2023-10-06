@@ -22,3 +22,6 @@ class Formula(PropertiesBase):
 class FormulaDict(PropertiesDictBase):
     type: Literal["formula"] = Field(default="formula")
     formula: Formula
+
+    def _get_base(self) -> PropertiesBase:
+        return self.formula

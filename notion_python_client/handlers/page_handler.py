@@ -1,14 +1,10 @@
 from typing import Dict, Optional, Union
-from cerberus import Validator
 
 from notion_python_client.exceptions import PropertyNotIncludedException, PropertyTypeException, RelationOutOfRangeException
-from notion_python_client.validation import PAGE_SCHEMA
 from notion_python_client.handlers.handler import Handler
 
 from notion_python_client.models.page import Page
 from notion_python_client.models.properties import Status, Title, PropertiesBase
-from notion_python_client.models.rich_text import RichText
-from notion_python_client.models.text import Text
 from notion_python_client.models.file import File
 from notion_python_client.models.parent import Parent
 
@@ -77,19 +73,31 @@ class PageHandler(Handler):
 
         return Page.model_validate(resp)
 
-    def update_page(self, page_id: str, updates: Dict) -> Page:
+    def update_page(self, page_id: Optional[str] = None, updates: Optional[Dict] = None, page: Optional[Page] = None) -> Page:
         """Update a specifc page with the content in the updates dict
 
         Args:
-            page_id (str): The id of the page that should be updated
-            updates (Dict): The dict containing the updates
+            page_id (str, optional): The id of the page that should be updated. Defaults to None.
+            updates (Dict, optional): The updates that should be applied. Defaults to None.
+            page (Page, optional): The page that should be updated. Defaults to None.
+                If a page is provided, the page_id and updates arguments will be ignored.
 
         Returns:
             Page: Updated page
         """
 
+        if page is not None:
+            properties = page.properties
+            
+            for property in properties:
+                ...
+                
+                
+        elif updates is None and page_id is None:
+            raise Exception("No page or updates provided")
+            
         path = f'/{page_id}'
-
+        
         # Make the request
         resp = self._make_request("PATCH", path, json=updates)
 

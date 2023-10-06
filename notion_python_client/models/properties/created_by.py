@@ -1,11 +1,10 @@
 from typing import Dict, Literal
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 from notion_python_client.models.user import User
 
 
-class CreatedBy(PropertiesDictBase, PropertiesBase):
+class CreatedBy(PropertiesBase):
     type: Literal['created_by'] = "created_by"
     created_by: User
 

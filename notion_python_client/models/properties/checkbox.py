@@ -1,10 +1,9 @@
 from typing import Dict, Literal
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
-class Checkbox(PropertiesDictBase, PropertiesBase):
+class Checkbox(PropertiesBase):
     type: Literal['checkbox'] = "checkbox"
     checkbox: bool
 

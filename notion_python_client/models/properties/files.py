@@ -2,11 +2,10 @@ from typing import Dict, List, Literal
 from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 from notion_python_client.models.file import File
 
 
-class Files(PropertiesDictBase, PropertiesBase):
+class Files(PropertiesBase):
     type: Literal['files'] = Field(default="files")
     files: List[File]
 

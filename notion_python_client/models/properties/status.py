@@ -5,7 +5,6 @@ from notion_python_client.models.properties.properties_base import PropertiesBas
 from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
-
 class Status(PropertiesBase):
     """Status property
 
@@ -52,3 +51,6 @@ class Status(PropertiesBase):
 class StatusDict(PropertiesDictBase):
     type: Literal['status'] = Field(default="status")
     status: Status
+
+    def _get_base(self) -> PropertiesBase:
+        return self.status

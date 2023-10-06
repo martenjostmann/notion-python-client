@@ -19,7 +19,7 @@ class Page(BaseModel):
     last_edited_by: User
     icon: Optional[Union[File, Emoji]] = Field(default=None)
     cover: Optional[File] = Field(default=None)
-    properties: Dict[str, Annotated[Union[DateDict, StatusDict, Number, SelectDict, MultiSelectDict, People, Files, Checkbox,
+    properties: Dict[str, Annotated[Union[DateDict, StatusDict, Number, SelectDict, MultiSelect, People, Files, Checkbox,
                                           Email, PhoneNumber, FormulaDict, Relation, CreatedTime, CreatedBy, LastEditedTime, LastEditedBy, RichTextProp, Title, URL, UniqueIdDict], Field(discriminator="type")]]
     url: str
     public_url: Optional[str] = Field(default=None)

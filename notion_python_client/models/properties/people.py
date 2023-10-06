@@ -2,11 +2,10 @@ from typing import Dict, List, Literal
 from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 from notion_python_client.models.user import User
 
 
-class People(PropertiesDictBase, PropertiesBase):
+class People(PropertiesBase):
     type: Literal['people'] = Field(default="people")
     people: List[User]
 

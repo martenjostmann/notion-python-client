@@ -2,11 +2,10 @@ from typing import Dict, Literal
 from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 from notion_python_client.models.user import User
 
 
-class LastEditedBy(PropertiesDictBase, PropertiesBase):
+class LastEditedBy(PropertiesBase):
     type: Literal['last_edited_by'] = "last_edited_by"
     last_edited_by: User
 

@@ -25,12 +25,11 @@ class Select(PropertiesBase):
             self.color_ = value
 
     def create_object(self, property_name: str) -> Dict:
-        """Color cannot be updated, so it is not included in the status object."""
+        """Color cannot be updated, so it is not included in the select object."""
 
         select = {
             property_name: {
                 "select": {
-                    "id": self.id,
                     "name": self.name,
                 }
             }
@@ -44,3 +43,6 @@ class Select(PropertiesBase):
 class SelectDict(PropertiesDictBase):
     type: Literal['select'] = Field(default="select")
     select: Select
+
+    def _get_base(self) -> PropertiesBase:
+        return self.select

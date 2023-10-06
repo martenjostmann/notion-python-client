@@ -2,10 +2,10 @@ from typing import Dict, Optional, Literal
 from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
-class PhoneNumber(PropertiesDictBase, PropertiesBase):
+
+class PhoneNumber(PropertiesBase):
     type: Literal["phone_number"] = Field(default="phone_number")
     phone_number: Optional[str] = Field(default=None)
 

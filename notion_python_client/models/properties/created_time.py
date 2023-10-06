@@ -2,10 +2,8 @@ from datetime import datetime
 from typing import Dict, Literal
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
-
-class CreatedTime(PropertiesDictBase, PropertiesBase):
+class CreatedTime(PropertiesBase):
     type: Literal['created_time'] = "created_time"
     created_time: datetime
 

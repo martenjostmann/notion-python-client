@@ -27,3 +27,6 @@ class UniqueId(PropertiesBase):
 class UniqueIdDict(PropertiesDictBase):
     type: Literal['unique_id'] = Field(default="unique_id")
     unique_id: UniqueId
+
+    def _get_base(self) -> PropertiesBase:
+        return self.unique_id

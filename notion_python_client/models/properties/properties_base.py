@@ -1,7 +1,9 @@
-from pydantic import BaseModel
-from typing import Dict, no_type_check, List, Union, Tuple
+from pydantic import BaseModel, Field
+from typing import Dict, no_type_check, List, Union, Optional
 from abc import ABC, abstractmethod
 import inspect
+
+from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
 
 
 class PropertiesBase:
@@ -31,6 +33,8 @@ class PatchedModel(BaseModel):
 
 
 class PropertiesBase(PatchedModel, ABC):
+    id: Optional[str] = Field(default=None)
+
     @abstractmethod
     def create_object(self, property_name: str) -> Dict:
         pass
@@ -42,14 +46,14 @@ class PropertiesBase(PatchedModel, ABC):
             return d
 
     @staticmethod
-    def build_properties(properties: List[Union[Dict, Tuple[PropertiesBase, str]]]) -> Dict:
+    def build_properties(properties: Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]) -> Dict:
         """Create a properties object from a list of properties that can be used to update a page.
 
         Args:
-            properties (List[Union[Dict, Tuple[PropertiesBase, str]]]): 
+            properties (Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]): 
                 List of propertie dictionaries that were created by the create_object method of the property classes.
                 Or
-                List of tuples of a property class and a property name. 
+                Dict of a property class and a property name. 
                 The create_object method of the property class will be called with the property name as argument.
 
         Returns:
@@ -57,10 +61,14 @@ class PropertiesBase(PatchedModel, ABC):
         """
         properties_dict = {}
 
-        for property in properties:
-            if isinstance(property[0], PropertiesBase):
-                properties_dict.update(property[0].create_object(property[1]))
-            else:
+        if isinstance(properties, list):
+            for property in properties:
                 properties_dict.update(property)
+        else:
+            for property_name, property in properties.items():
+                if isinstance(property, PropertiesDictBase):
+                    print(property)
+                    property = property._get_base()
+                properties_dict.update(property.create_object(property_name))
 
         return {"properties": properties_dict}
