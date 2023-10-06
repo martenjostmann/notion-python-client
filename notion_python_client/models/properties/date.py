@@ -9,7 +9,7 @@ from notion_python_client.models.properties.properties_base_dict import Properti
 
 class Date(PropertiesBase):
     start: Optional[Union[datetime, date]]
-    end: Optional[datetime] = Field(default=None)
+    end: Optional[Union[datetime, date]] = Field(default=None)
 
     def create_object(self, property_name: str) -> Dict:
 
@@ -17,10 +17,16 @@ class Date(PropertiesBase):
         _end = None
 
         if self.start is not None:
-            _start = self.start.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+            if isinstance(self.start, datetime):
+                _start = self.start.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "z"
+            else:
+                _start = self.start.strftime('%Y-%m-%d')
 
         if self.end is not None:
-            _end = self.end.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+            if isinstance(self.end, datetime):
+                _end = self.end.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "z"
+            else:
+                _end = self.end.strftime('%Y-%m-%d')
 
         date = {
             property_name: {
