@@ -1,11 +1,12 @@
 from pydantic import BaseModel, Field
-from typing import Literal, Dict, Optional
+from typing import Literal, Dict, Optional, Union
 from datetime import datetime
 
 
 class File(BaseModel):
+    name: str
     type: Literal["external", "file"]
-    file: Optional[Dict[str, datetime]] = Field(default=None)
+    file: Optional[Dict[str, Union[str, datetime]]] = Field(default=None)
     external: Optional[Dict] = Field(default=None)
 
     def create_object(self, property_name: str = "file") -> Dict:
@@ -20,12 +21,14 @@ class File(BaseModel):
         if self.file is not None:
             return {
                 property_name: {
+                    "name": self.name,
                     "file": self.file,
                 }
             }
         elif self.external is not None:
             return {
                 property_name: {
+                    "name": self.name,
                     "external": self.external
                 }
             }

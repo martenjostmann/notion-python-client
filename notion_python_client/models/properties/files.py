@@ -14,7 +14,7 @@ class Files(PropertiesBase):
 
         files = {
             property_name: {
-                "files": self.files
+                "files": [file.create_object()["file"] for file in self.files]
             }
         }
 
