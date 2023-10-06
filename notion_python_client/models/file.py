@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class File(BaseModel):
-    name: str
+    name: Optional[str] = Field(default=None)
     type: Literal["external", "file"]
     file: Optional[Dict[str, Union[str, datetime]]] = Field(default=None)
     external: Optional[Dict] = Field(default=None)

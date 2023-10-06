@@ -64,7 +64,7 @@ class PageHandler(Handler):
 
             elif isinstance(cover, str):
                 cover = File(type="external", external={
-                             "url": cover}).create_object()
+                             "url": cover})
 
             properties.update(cover.create_object(property_name="cover"))
 
@@ -88,16 +88,14 @@ class PageHandler(Handler):
 
         if page is not None:
             properties = page.properties
-            
-            for property in properties:
-                ...
-                
-                
+
+            updates = PropertiesBase.build_properties(properties=properties)
+
         elif updates is None and page_id is None:
             raise Exception("No page or updates provided")
-            
+
         path = f'/{page_id}'
-        
+
         # Make the request
         resp = self._make_request("PATCH", path, json=updates)
 
