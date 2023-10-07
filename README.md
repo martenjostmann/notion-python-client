@@ -1,5 +1,8 @@
 # Notion Python Client (NPC)
 
+![pytthon-versions](https://img.shields.io/badge/python-3.9%20|%203.10%20|%203.11%20|%203.12--dev-blue) [![codecov](https://codecov.io/gh/martenjostmann/notion-python-client/graph/badge.svg?token=RTV5XNU7SR)](https://codecov.io/gh/martenjostmann/notion-python-client)
+![example workflow](https://github.com/martenjostmann/notion-python-client/actions/workflows/test.yml/badge.svg)
+
 ## Introduction
 
 NPC (Notion Python Client) is a Python library that simplifies interactions with the Notion API. With this library, you can effortlessly integrate your Python applications with Notion, allowing you to create, retrieve, update, and manage Notion pages, databases, and more, all within your Python code.
