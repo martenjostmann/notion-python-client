@@ -1,9 +1,12 @@
-from pydantic import Field
-from typing import Dict, Optional, Union, Literal
 from datetime import datetime
+from typing import Dict, Literal, Optional, Union
+
+from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
+from notion_python_client.models.properties.properties_base_dict import (
+    PropertiesDictBase,
+)
 
 
 class Formula(PropertiesBase):
@@ -14,7 +17,8 @@ class Formula(PropertiesBase):
     type: Literal["boolean", "date", "number", "string"]
 
     def create_object(self, property_name: str) -> Dict:
-        """The formula property cannot be updated, so it is not included in the formula object."""
+        """The formula property cannot be updated, 
+        so it is not included in the formula object."""
 
         return None
 

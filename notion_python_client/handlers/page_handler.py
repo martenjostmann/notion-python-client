@@ -1,12 +1,16 @@
 from typing import Dict, Optional, Union
 
-from notion_python_client.exceptions import PropertyNotIncludedException, PropertyTypeException, RelationOutOfRangeException
+from notion_python_client.exceptions import (
+    PropertyNotIncludedException,
+    PropertyTypeException,
+    RelationOutOfRangeException,
+)
 from notion_python_client.handlers.handler import Handler
-
-from notion_python_client.models.page import Page
-from notion_python_client.models.properties import Status, Title, PropertiesBase
 from notion_python_client.models.file import File
+from notion_python_client.models.page import Page
 from notion_python_client.models.parent import Parent
+from notion_python_client.models.properties import (
+    PropertiesBase, Status, Title)
 
 
 class PageHandler(Handler):
@@ -28,21 +32,26 @@ class PageHandler(Handler):
 
         return Page.model_validate(resp)
 
-    def create_page(self, parent_id: str, properties: Dict, cover: Optional[Union[File, Dict, str]] = None) -> Page:
+    def create_page(self,
+                    parent_id: str,
+                    properties: Dict,
+                    cover: Optional[Union[File, Dict, str]] = None) -> Page:
         """Create a new page with the given properties
 
         Args:
             parent_id (str): The id of the parent page
             properties (Dict): The properties of the new page
             cover (Optional[Union[File, Dict, str]]): 
-                The cover of the page. Can be a File object, a dict or a string. If a string is provided, 
-                it will be interpreted as a url. If a dict is provided, it will be interpreted as a File object. Defaults to None.
+                The cover of the page. Can be a File object, a dict or a string. 
+                If a string is provided, it will be interpreted as a url. 
+                If a dict is provided, it will be interpreted as a File object. 
+                Defaults to None.
 
         Returns:
             Page: The created page
         """
 
-        path = f''
+        path = ''
 
         if "properties" in properties:
             properties = properties["properties"]
@@ -73,14 +82,20 @@ class PageHandler(Handler):
 
         return Page.model_validate(resp)
 
-    def update_page(self, page_id: Optional[str] = None, updates: Optional[Dict] = None, page: Optional[Page] = None) -> Page:
+    def update_page(self,
+                    page_id: Optional[str] = None,
+                    updates: Optional[Dict] = None,
+                    page: Optional[Page] = None) -> Page:
         """Update a specifc page with the content in the updates dict
 
         Args:
-            page_id (str, optional): The id of the page that should be updated. Defaults to None.
-            updates (Dict, optional): The updates that should be applied. Defaults to None.
-            page (Page, optional): The page that should be updated. Defaults to None.
-                If a page is provided, the page_id and updates arguments will be ignored.
+            page_id (str, optional): The id of the page that should be updated. 
+                Defaults to None.
+            updates (Dict, optional): The updates that should be applied. 
+                Defaults to None.
+            page (Page, optional): The page that should be updated. If a page 
+                is provided, the page_id and updates arguments will be ignored.
+                Defaults to None.
 
         Returns:
             Page: Updated page
@@ -92,7 +107,7 @@ class PageHandler(Handler):
             updates = PropertiesBase.build_properties(properties=properties)
 
         elif updates is None and page_id is None:
-            raise Exception("No page or updates provided")
+            raise ValueError("No page or updates provided")
 
         path = f'/{page_id}'
 
@@ -102,7 +117,8 @@ class PageHandler(Handler):
         return Page.model_validate(resp)
 
     def delete_page(self, page_id: str) -> Page:
-        """The deletion of a page is the equivalent of archiving it. Therefore, this method will just archive the page.
+        """The deletion of a page is the equivalent of archiving it. 
+        Therefore, this method will just archive the page.
 
         Args:
             page_id (str): Page id of the page that should be deleted
@@ -158,14 +174,21 @@ class PageHandler(Handler):
         resp = self.update_page(page_id, body)
         return Page.model_validate(resp)
 
-    def set_title_to_relation(self, page: Page, relation_property_name: str, title_property_name: str, relation_idx: int = 0) -> Page:
+    def set_title_to_relation(self,
+                              page: Page,
+                              relation_property_name: str,
+                              title_property_name: str,
+                              relation_idx: int = 0) -> Page:
         """Sets the title of a page to the title of the relation
 
         Args:
             page (Page): The page that should be updated
             relation_property_name (str): The name of the relation property
-            title_property_name (str): The name of the title property. This property will be updated with the title of the relation
-            relation_idx (int, optional): The index of the relation that should be used. Can be used when multiple relations are available. Defaults to 0.
+            title_property_name (str): The name of the title property. 
+                This property will be updated with the title of the relation
+            relation_idx (int, optional): The index of the relation 
+                that should be used. Can be used when multiple relations are available. 
+                Defaults to 0.
 
         Returns:
             Dict: The updated page
@@ -186,7 +209,10 @@ class PageHandler(Handler):
                             relation[relation_idx].id)
 
                         if title_property_name in relation_page.properties:
-                            title = relation_page.properties[title_property_name].title[0].text.content
+
+                            title = (relation_page.properties[title_property_name]
+                                     .title[0].text.content)
+
                             resp = self.update_title(
                                 page.id, title_property_name, title)
                         else:

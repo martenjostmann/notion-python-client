@@ -1,9 +1,12 @@
-from pydantic import BaseModel, Field
-from typing import Dict, no_type_check, List, Union, Optional
-from abc import ABC, abstractmethod
 import inspect
+from abc import ABC, abstractmethod
+from typing import Dict, List, Optional, Union, no_type_check
 
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
+from pydantic import BaseModel, Field
+
+from notion_python_client.models.properties.properties_base_dict import (
+    PropertiesDictBase,
+)
 
 
 class PropertiesBase:
@@ -46,15 +49,31 @@ class PropertiesBase(PatchedModel, ABC):
             return d
 
     @staticmethod
-    def build_properties(properties: Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]) -> Dict:
-        """Create a properties object from a list of properties that can be used to update a page.
+    def build_properties(
+        properties: Union[List[Dict],
+                          Dict[str, Union[PropertiesBase, PropertiesDictBase]]]
+    ) -> Dict:
+        """Create a properties object from a list of properties 
+        that can be used to update a page.
 
         Args:
-            properties (Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]): 
-                List of propertie dictionaries that were created by the create_object method of the property classes.
+            properties (
+                Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]
+                ): 
+                List of propertie dictionaries that were created 
+                by the create_object method of the property classes.
                 Or
                 Dict of a property class and a property name. 
-                The create_object method of the property class will be called with the property name as argument.
+                The create_object method of the property class will be 
+                called with the property name as argument.
+
+                The dict should be of the following form:
+                {
+                    "type": "external",
+                    "external": {
+                        "url": "www.test.de/image.png"
+                    }
+                }
 
         Returns:
             Dict: Combined properties dictionary out of a list of properties.

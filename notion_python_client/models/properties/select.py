@@ -1,14 +1,17 @@
-from pydantic import Field
-from typing import Dict, Optional, Literal
+from typing import Dict, Literal, Optional
 
+from pydantic import Field
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
+from notion_python_client.models.properties.properties_base_dict import (
+    PropertiesDictBase,
+)
 
 
 class Select(PropertiesBase):
-    color_: Optional[Literal["blue", "brown", "default", "gray", "green",
-                             "orange", "pink", "purple", "red", "yellow"]] = Field(default="default")
+    color_: Optional[Literal["blue", "brown", "default",
+                             "gray", "green", "orange", "pink",
+                             "purple", "red", "yellow"]] = Field(default="default")
     id: Optional[str] = Field(default=None)
     name: Optional[str] = Field(default=None)
 

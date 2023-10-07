@@ -1,7 +1,11 @@
-from typing import Dict, Optional, Literal
+from typing import Dict, Literal, Optional
+
 from pydantic import Field
+
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
+from notion_python_client.models.properties.properties_base_dict import (
+    PropertiesDictBase,
+)
 
 
 class URL(PropertiesDictBase, PropertiesBase):

@@ -9,6 +9,7 @@ class CreatedBy(PropertiesBase):
     created_by: User
 
     def create_object(self, property_name: str) -> Dict:
-        """The created_by property cannot be updated, so it is not included in the created_by object."""
+        """The created_by property cannot be updated, 
+        so it is not included in the created_by object."""
 
         return None

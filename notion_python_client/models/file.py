@@ -13,7 +13,8 @@ class File(BaseModel):
         """Create a file object that can be used in the properties of a page.
 
         Args:
-            property_name (str): The name of the property that should be created (default: "file")
+            property_name (str): The name of the property that should be created 
+                (default: "file")
 
         Returns:
             Dict: The created file object

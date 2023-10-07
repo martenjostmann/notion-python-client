@@ -7,4 +7,7 @@ class Client:
         self.api_key = api_key
 
     def headers(self):
-        return {"Authorization": f"Bearer {self.api_key}", "Notion-Version": "2022-06-28"}
+        return {
+            "Authorization": f"Bearer {self.api_key}",
+            "Notion-Version": "2022-06-28"
+        }

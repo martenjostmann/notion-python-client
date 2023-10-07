@@ -10,10 +10,14 @@ class Title(PropertiesBase):
     title_: List[RichText]
 
     def __init__(self, title: Union[str, List[RichText]], **kwargs):
-        if type(title) == str:
+        if isinstance(title, str):
             super().__init__(
-                title_=[RichText(type="text", text=Text(content=title), plain_text=title)], **kwargs)
-        elif type(title) == list:
+                title_=[
+                    RichText(type="text", text=Text(
+                        content=title), plain_text=title)
+                ], **kwargs)
+
+        elif isinstance(title, list):
             super().__init__(
                 title_=title, **kwargs)
         else:
@@ -26,10 +30,10 @@ class Title(PropertiesBase):
 
     @title.setter
     def title(self, title: Union[str, List[RichText]]):
-        if type(title) == str:
+        if isinstance(title, str):
             self.title_ = [RichText(type="text", text=Text(
                 content=title), plain_text=title)]
-        elif type(title) == list:
+        elif isinstance(title, list):
             self.title_ = title
         else:
             raise TypeError(

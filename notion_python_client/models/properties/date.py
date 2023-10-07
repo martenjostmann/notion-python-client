@@ -1,10 +1,12 @@
+from datetime import date, datetime
+from typing import Dict, Literal, Optional, Union
+
 from pydantic import Field
 
-from typing import Dict, Optional, Union, Literal
-from datetime import datetime, date
-
 from notion_python_client.models.properties.properties_base import PropertiesBase
-from notion_python_client.models.properties.properties_base_dict import PropertiesDictBase
+from notion_python_client.models.properties.properties_base_dict import (
+    PropertiesDictBase,
+)
 
 
 class Date(PropertiesBase):

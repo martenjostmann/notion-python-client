@@ -8,6 +8,7 @@ class CreatedTime(PropertiesBase):
     created_time: datetime
 
     def create_object(self, property_name: str) -> Dict:
-        """The created_time property cannot be updated, so it is not included in the created_time object."""
+        """The created_time property cannot be updated, 
+        so it is not included in the created_time object."""
 
         return None

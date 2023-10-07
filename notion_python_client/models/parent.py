@@ -4,7 +4,8 @@ from typing import Dict
 
 
 class Parent(BaseModel):
-    """Note: Currntly only the datbase parent is supported. The page parent is not supported yet.
+    """Note: Currntly only the datbase parent is supported. 
+    The page parent is not supported yet.
     """
 
     type: str = Field(default="database_id")
@@ -14,7 +15,8 @@ class Parent(BaseModel):
         """Create a file object that can be used in the properties of a page.
 
         Args:
-            property_name (str): The name of the property that should be created (default: "parent")
+            property_name (str): The name of the property that should be created 
+                (default: "parent")
 
         Returns:
             Dict: The created file object

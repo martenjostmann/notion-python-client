@@ -13,7 +13,8 @@ class PropertyTypeException(Exception):
         self.actual_type = actual_type
 
     def __str__(self):
-        return f"PropertyException: Expected type {self.excpected_type} but got {self.actual_type}"
+        return f"PropertyException: Expected type {self.excpected_type} " \
+            "but got {self.actual_type}"
 
 
 class PageValidationException(Exception):
@@ -30,7 +31,8 @@ class RelationOutOfRangeException(Exception):
         self.relation_count = relation_count
 
     def __str__(self):
-        return f"RelationOutOfRangeException: Relation index {self.relation_idx} is out of range. There are only {self.relation_count} relations available"
+        return f"RelationOutOfRangeException: Relation index {self.relation_idx}" \
+            "is out of range. There are only {self.relation_count} relations available"
 
 
 class PropertyNotIncludedException(Exception):
@@ -38,4 +40,5 @@ class PropertyNotIncludedException(Exception):
         self.property_name = property_name
 
     def __str__(self):
-        return f"PropertyNotIncludedException: Property {self.property_name} is not included in the properties of the page"
+        return f"PropertyNotIncludedException: Property {self.property_name} " \
+            "is not included in the properties of the page"

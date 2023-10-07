@@ -10,7 +10,8 @@ class Files(PropertiesBase):
     files: List[File]
 
     def create_object(self, property_name: str) -> Dict:
-        """When updating a file page property value, the value is overwritten by the array of files passed."""
+        """When updating a file page property value, 
+        the value is overwritten by the array of files passed."""
 
         files = {
             property_name: {

@@ -10,8 +10,10 @@ class DatabaseHandler(Handler):
         """Get all pages from a database that match the filter
 
         Args:
-            database_id (str): The id of the database where the pages should be retrieved from
-            filter (dict, optional): The filter that should be applied. Defaults to None.
+            database_id (str): The id of the database 
+                where the pages should be retrieved from
+            filter (dict, optional): The filter that should be applied. 
+                Defaults to None.
 
         Returns:
             List[Page]: The pages that match the filter
