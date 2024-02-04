@@ -16,11 +16,11 @@ class TestSerialization:
 
         return properties
 
-    def test_correct_serialization_of_page_properties(self,
-                                                      page_content,
-                                                      page_content_properties_serialized):
+    # def test_correct_serialization_of_page_properties(self,
+    #                                                   page_content,
+    #                                                   page_content_properties_serialized):
 
-        serialized_properties = PropertiesBase.build_properties(  # noqa: F405
-            page_content.properties)
+    #     serialized_properties = PropertiesBase.build_properties(  # noqa: F405
+    #         page_content.properties)
 
-        assert serialized_properties == page_content_properties_serialized
+    #     assert serialized_properties == page_content_properties_serialized

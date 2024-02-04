@@ -20,13 +20,14 @@ class Date(PropertiesBase):
 
         if self.start is not None:
             if isinstance(self.start, datetime):
-                _start = self.start.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "z"
+                _start = self.start.strftime("%Y%m%dT%H%M%S.%fZ")
+
             else:
                 _start = self.start.strftime('%Y-%m-%d')
 
         if self.end is not None:
             if isinstance(self.end, datetime):
-                _end = self.end.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "z"
+                _end = self.end.strftime("%Y%m%dT%H%M%S.%fZ")
             else:
                 _end = self.end.strftime('%Y-%m-%d')
 

@@ -14,7 +14,7 @@ class Relation(PropertiesBase):
 
         relation = {
             property_name: {
-                "relation": [{"id": r} for r in self.relation]
+                "relation": [{"id": str(r.id)} for r in self.relation]
             }
         }
 
