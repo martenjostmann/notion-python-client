@@ -197,7 +197,6 @@
     },
     "Estimated total project time": {
       "id": "%5E%7Cy%3C",
-      "name": "Estimated total project time",
       "type": "rollup",
       "rollup": {
         "rollup_property_name": "Days to complete",

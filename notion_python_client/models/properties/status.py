@@ -18,10 +18,21 @@ class Status(PropertiesBase):
 
     """
 
-    color_: Optional[Literal["blue", "brown", "default", "gray",
-                             "green", "orange", "pink", "purple",
-                             "red", "yellow"]] = Field(default="default")
-    id: str = Field(default=None)
+    color_: Optional[
+        Literal[
+            "blue",
+            "brown",
+            "default",
+            "gray",
+            "green",
+            "orange",
+            "pink",
+            "purple",
+            "red",
+            "yellow",
+        ]
+    ] = Field(default="default")
+    id: Optional[str] = Field(default=None)
     name: str
 
     @property
@@ -30,8 +41,17 @@ class Status(PropertiesBase):
 
     @color.setter
     def color(self, value):
-        if value not in ["blue", "brown", "gray", "green",
-                         "orange", "pink", "purple", "red", "yellow"]:
+        if value not in [
+            "blue",
+            "brown",
+            "gray",
+            "green",
+            "orange",
+            "pink",
+            "purple",
+            "red",
+            "yellow",
+        ]:
             self.color_ = "default"
         else:
             self.color_ = value
@@ -53,7 +73,7 @@ class Status(PropertiesBase):
 
 
 class StatusDict(PropertiesDictBase):
-    type: Literal['status'] = Field(default="status")
+    type: Literal["status"] = Field(default="status")
     status: Status
 
     def _get_base(self) -> PropertiesBase:

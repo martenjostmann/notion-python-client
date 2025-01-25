@@ -24,8 +24,7 @@ class PatchedModel(BaseModel):
         except ValueError as e:
             setters = inspect.getmembers(
                 self.__class__,
-                predicate=lambda x: isinstance(
-                    x, property) and x.fset is not None
+                predicate=lambda x: isinstance(x, property) and x.fset is not None,
             )
             for setter_name, func in setters:
                 if setter_name == name:
@@ -50,21 +49,22 @@ class PropertiesBase(PatchedModel, ABC):
 
     @staticmethod
     def build_properties(
-        properties: Union[List[Dict],
-                          Dict[str, Union[PropertiesBase, PropertiesDictBase]]]
+        properties: Union[
+            List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]
+        ],
     ) -> Dict:
-        """Create a properties object from a list of properties 
+        """Create a properties object from a list of properties
         that can be used to update a page.
 
         Args:
             properties (
                 Union[List[Dict], Dict[str, Union[PropertiesBase, PropertiesDictBase]]]
-                ): 
-                List of propertie dictionaries that were created 
+                ):
+                List of property dictionaries that were created
                 by the create_object method of the property classes.
                 Or
-                Dict of a property class and a property name. 
-                The create_object method of the property class will be 
+                Dict of a property class and a property name.
+                The create_object method of the property class will be
                 called with the property name as argument.
 
                 The dict should be of the following form:

@@ -27,6 +27,7 @@ from notion_python_client.models.properties import (
     StatusDict,
     Title,
     UniqueIdDict,
+    RollupDict,
 )
 from notion_python_client.models.user import User
 
@@ -42,13 +43,34 @@ class Page(BaseModel):
     last_edited_by: User
     icon: Optional[Union[File, Emoji]] = Field(default=None)
     cover: Optional[File] = Field(default=None)
-    properties: Dict[str, Annotated[Union[DateDict, StatusDict, Number,
-                                          SelectDict, MultiSelect, People,
-                                          Files, Checkbox,
-                                          Email, PhoneNumber, FormulaDict,
-                                          Relation, CreatedTime, CreatedBy,
-                                          LastEditedTime, LastEditedBy,
-                                          RichTextProp, Title, URL, UniqueIdDict
-                                          ], Field(discriminator="type")]]
+    properties: Dict[
+        str,
+        Annotated[
+            Union[
+                DateDict,
+                StatusDict,
+                Number,
+                SelectDict,
+                MultiSelect,
+                People,
+                Files,
+                Checkbox,
+                Email,
+                PhoneNumber,
+                FormulaDict,
+                Relation,
+                CreatedTime,
+                CreatedBy,
+                LastEditedTime,
+                LastEditedBy,
+                RichTextProp,
+                Title,
+                URL,
+                UniqueIdDict,
+                RollupDict,
+            ],
+            Field(discriminator="type"),
+        ],
+    ]
     url: str
     public_url: Optional[str] = Field(default=None)
