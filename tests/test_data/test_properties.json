@@ -1,70 +1,70 @@
 {
-    "properties": {
-        "Number": {
-            "number": 1
+  "properties": {
+    "Number": {
+      "number": 1
+    },
+    "Multi-select": {
+      "multi_select": [
+        {
+          "name": "Option1"
         },
-        "Multi-select": {
-            "multi_select": [
-                {
-                    "name": "Option1"
-                },
-                {
-                    "name": "Option2"
-                }
-            ]
-        },
-        "Title": {
-            "title": [
-                {
-                    "text": {
-                        "content": "My beautiful title"
-                    }
-                }
-            ]
-        },
-        "Checkbox" : {
-            "checkbox": true
-        },
-        "Date with start": {
-            "date": {
-                "start": "2021-09-23"
-            }
-        },
-        "Date with end": {
-            "date": {
-                "start": "2021-09-23",
-                "end": "2021-09-24"
-            }
-        },
-        "Date with time": {
-            "date": {
-                "start": "2021-09-23T13:24:00.000z",
-                "end": "2021-09-24T13:24:00.000z"
-            }
-        },
-        "Email": {
-            "email": "test@test.de"
-        },
-        "File External": {
-            "files": [
-                {
-                    "name": "Externalfile",
-                    "external": {
-                        "url": "https://www.google.com"
-                    }
-                }
-            ]
-        },
-        "File File": {
-            "files": [
-                {
-                    "name": "File",
-                    "file": {
-                        "url": "https://www.google.de/myfile.pdf",
-                        "expiry_time": "2023-10-06T13:19:48.446Z"
-                    }
-                }
-            ]
+        {
+          "name": "Option2"
         }
+      ]
+    },
+    "Title": {
+      "title": [
+        {
+          "text": {
+            "content": "My beautiful title"
+          }
+        }
+      ]
+    },
+    "Checkbox": {
+      "checkbox": true
+    },
+    "Date with start": {
+      "date": {
+        "start": "2021-09-23"
+      }
+    },
+    "Date with end": {
+      "date": {
+        "start": "2021-09-23",
+        "end": "2021-09-24"
+      }
+    },
+    "Date with time": {
+      "date": {
+        "start": "2021-09-23T13:24:00.000z",
+        "end": "2021-09-24T13:24:00.000z"
+      }
+    },
+    "Email": {
+      "email": "test@test.de"
+    },
+    "File External": {
+      "files": [
+        {
+          "name": "Externalfile",
+          "external": {
+            "url": "https://www.google.com"
+          }
+        }
+      ]
+    },
+    "File File": {
+      "files": [
+        {
+          "name": "File",
+          "file": {
+            "url": "https://www.google.de/myfile.pdf",
+            "expiry_time": "2023-10-06T13:19:48.446Z"
+          }
+        }
+      ]
     }
+  }
 }

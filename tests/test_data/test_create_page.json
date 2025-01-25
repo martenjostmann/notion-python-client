@@ -1,74 +1,74 @@
 {
-    "object": "page",
-    "id": "15e4163e-93ba-40fa-bcc4-0b99b816071b",
-    "created_time": "2023-09-23T13:24:00.000Z",
-    "last_edited_time": "2023-10-05T11:14:00.000Z",
-    "created_by": {
-        "object": "user",
-        "id": "1be0a2d9-0e4d-493f-8344-33431e514404"
+  "object": "page",
+  "id": "15e4163e-93ba-40fa-bcc4-0b99b816071b",
+  "created_time": "2023-09-23T13:24:00.000Z",
+  "last_edited_time": "2023-10-05T11:14:00.000Z",
+  "created_by": {
+    "object": "user",
+    "id": "1be0a2d9-0e4d-493f-8344-33431e514404"
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": "4db9b42a-baff-4f6a-8df3-3b64f1a45648"
+  },
+  "cover": null,
+  "icon": null,
+  "parent": {
+    "type": "database_id",
+    "database_id": "53da7135-2b5a-4d7e-ba78-f255f9531379"
+  },
+  "archived": false,
+  "properties": {
+    "Number": {
+      "id": "DtK%3E",
+      "type": "number",
+      "number": 1
     },
-    "last_edited_by": {
-        "object": "user",
-        "id": "4db9b42a-baff-4f6a-8df3-3b64f1a45648"
-    },
-    "cover": null,
-    "icon": null,
-    "parent": {
-        "type": "database_id",
-        "database_id": "53da7135-2b5a-4d7e-ba78-f255f9531379"
-    },
-    "archived": false,
-    "properties": {
-        "Number": {
-            "id": "DtK%3E",
-            "type": "number",
-            "number": 1
+    "Multi-select": {
+      "id": "%3Ab%3Ep",
+      "type": "multi_select",
+      "multi_select": [
+        {
+          "id": "84c1f7c7-7663-4c3a-b327-ab31ef7c22d8",
+          "name": "Option1",
+          "color": "defalt"
         },
-        "Multi-select": {
-            "id": "%3Ab%3Ep",
-            "type": "multi_select",
-            "multi_select": [
-                {
-                    "id": "84c1f7c7-7663-4c3a-b327-ab31ef7c22d8",
-                    "name": "Option1",
-                    "color": "defalt"
-                },
-                {
-                    "id": "554a5e69-09b8-4728-a317-986f3d9a6e2c",
-                    "name": "Option2",
-                    "color": "default"
-                }
-            ]
-        },
-        "Title": {
-            "id": "title",
-            "type": "title",
-            "title": [
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "My beautiful title",
-                        "link": null
-                    },
-                    "annotations": {
-                        "bold": false,
-                        "italic": false,
-                        "strikethrough": false,
-                        "underline": false,
-                        "code": false,
-                        "color": "default"
-                    },
-                    "plain_text": "My beautiful title",
-                    "href": null
-                }
-            ]
-        },
-        "Checkbox" : {
-            "id": "LRqP",
-            "type": "checkbox",
-            "checkbox": true
+        {
+          "id": "554a5e69-09b8-4728-a317-986f3d9a6e2c",
+          "name": "Option2",
+          "color": "default"
         }
+      ]
     },
-    "url": "https://www.notion.so/Test-15e4163e93ba40fabcc40b99b816071b",
-    "public_url": null
+    "Title": {
+      "id": "title",
+      "type": "title",
+      "title": [
+        {
+          "type": "text",
+          "text": {
+            "content": "My beautiful title",
+            "link": null
+          },
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "plain_text": "My beautiful title",
+          "href": null
+        }
+      ]
+    },
+    "Checkbox": {
+      "id": "LRqP",
+      "type": "checkbox",
+      "checkbox": true
+    }
+  },
+  "url": "https://www.notion.so/Test-15e4163e93ba40fabcc40b99b816071b",
+  "public_url": null
 }
