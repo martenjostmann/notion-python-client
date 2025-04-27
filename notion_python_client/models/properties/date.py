@@ -14,7 +14,6 @@ class Date(PropertiesBase):
     end: Optional[Union[datetime, date]] = Field(default=None)
 
     def create_object(self, property_name: str) -> Dict:
-
         _start = None
         _end = None
 
@@ -23,22 +22,15 @@ class Date(PropertiesBase):
                 _start = self.start.strftime("%Y%m%dT%H%M%S.%fZ")
 
             else:
-                _start = self.start.strftime('%Y-%m-%d')
+                _start = self.start.strftime("%Y-%m-%d")
 
         if self.end is not None:
             if isinstance(self.end, datetime):
                 _end = self.end.strftime("%Y%m%dT%H%M%S.%fZ")
             else:
-                _end = self.end.strftime('%Y-%m-%d')
+                _end = self.end.strftime("%Y-%m-%d")
 
-        date = {
-            property_name: {
-                "date": {
-                    "start": _start,
-                    "end": _end
-                }
-            }
-        }
+        date = {property_name: {"date": {"start": _start, "end": _end}}}
 
         date_cleaned = self.clean_none(date)
 
@@ -46,8 +38,8 @@ class Date(PropertiesBase):
 
 
 class DateDict(PropertiesDictBase):
-    type: Literal['date'] = Field(default="date")
+    type: Literal["date"] = Field(default="date")
     date: Optional[Date] = Field(default=None)
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.date

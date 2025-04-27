@@ -14,12 +14,7 @@ class UniqueId(PropertiesBase):
 
     def create_object(self, property_name: str) -> Dict:
         unique_id = {
-            property_name: {
-                "unique_id": {
-                    "number": self.number,
-                    "prefix": self.prefix
-                }
-            }
+            property_name: {"unique_id": {"number": self.number, "prefix": self.prefix}}
         }
 
         unique_id_cleaned = self.clean_none(unique_id)
@@ -28,8 +23,8 @@ class UniqueId(PropertiesBase):
 
 
 class UniqueIdDict(PropertiesDictBase):
-    type: Literal['unique_id'] = Field(default="unique_id")
+    type: Literal["unique_id"] = Field(default="unique_id")
     unique_id: UniqueId
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.unique_id

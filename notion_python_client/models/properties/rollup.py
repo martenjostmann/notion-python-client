@@ -1,5 +1,6 @@
-from typing import Dict, Literal
+from typing import Dict, Literal, Optional
 from pydantic import Field
+from datetime import datetime
 
 from notion_python_client.models.properties.properties_base import PropertiesBase
 from notion_python_client.models.properties.properties_base_dict import (
@@ -19,6 +20,12 @@ class Rollup(PropertiesBase):
 
     """
 
+    type: Literal["array", "date", "incomplete", "number", "unsupported"]
+    array: Optional[list] = Field(default=None)
+    date: Optional[datetime] = Field(default=None)
+    number: Optional[float] = Field(default=None)
+    incomplete: Optional[bool] = Field(default=None)
+    unsupported: Optional[bool] = Field(default=None)
     function: Literal[
         "average",
         "checked",
@@ -45,10 +52,6 @@ class Rollup(PropertiesBase):
         "show_unique",
         "sum",
     ]
-    relation_property_id: str
-    relation_property_name: str
-    rollup_property_id: str
-    rollup_property_name: str
 
     def create_object(self, property_name: str) -> Dict:
         """Create a rollup json object."""
@@ -56,10 +59,12 @@ class Rollup(PropertiesBase):
         rollup = {
             property_name: {
                 "rollup": {
-                    "rollup_property_name": self.rollup_property_name,
-                    "rollup_property_id": self.rollup_property_id,
-                    "relation_property_name": self.relation_property_name,
-                    "relation_property_id": self.relation_property_id,
+                    "type": self.type,
+                    "array": self.array,
+                    "date": self.date,
+                    "number": self.number,
+                    "incomplete": self.incomplete,
+                    "unsupported": self.unsupported,
                     "function": self.function,
                 }
             }
@@ -74,5 +79,5 @@ class RollupDict(PropertiesDictBase):
     type: Literal["rollup"] = Field(default="rollup")
     rollup: Rollup
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.rollup

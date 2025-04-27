@@ -9,9 +9,20 @@ from notion_python_client.models.properties.properties_base_dict import (
 
 
 class Select(PropertiesBase):
-    color_: Optional[Literal["blue", "brown", "default",
-                             "gray", "green", "orange", "pink",
-                             "purple", "red", "yellow"]] = Field(default="default")
+    color_: Optional[
+        Literal[
+            "blue",
+            "brown",
+            "default",
+            "gray",
+            "green",
+            "orange",
+            "pink",
+            "purple",
+            "red",
+            "yellow",
+        ]
+    ] = Field(default="default")
     id: Optional[str] = Field(default=None)
     name: Optional[str] = Field(default=None)
 
@@ -21,8 +32,17 @@ class Select(PropertiesBase):
 
     @color.setter
     def color(self, value):
-        if value not in ["blue", "brown", "gray", "green",
-                         "orange", "pink", "purple", "red", "yellow"]:
+        if value not in [
+            "blue",
+            "brown",
+            "gray",
+            "green",
+            "orange",
+            "pink",
+            "purple",
+            "red",
+            "yellow",
+        ]:
             self.color_ = "default"
         else:
             self.color_ = value
@@ -44,8 +64,8 @@ class Select(PropertiesBase):
 
 
 class SelectDict(PropertiesDictBase):
-    type: Literal['select'] = Field(default="select")
-    select: Select
+    type: Literal["select"] = Field(default="select")
+    select: Optional[Select] = Field(default=None)
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.select

@@ -13,7 +13,7 @@ class File(BaseModel):
         """Create a file object that can be used in the properties of a page.
 
         Args:
-            property_name (str): The name of the property that should be created 
+            property_name (str): The name of the property that should be created
                 (default: "file")
 
         Returns:
@@ -22,14 +22,14 @@ class File(BaseModel):
         if self.file is not None:
             return {
                 property_name: {
-                    "name": self.name,
+                    # "name": self.name,
                     "file": self.file,
                 }
             }
         elif self.external is not None:
             return {
                 property_name: {
-                    "name": self.name,
+                    # "name": self.name,
                     "external": self.external
                 }
             }

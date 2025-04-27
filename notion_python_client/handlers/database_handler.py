@@ -5,27 +5,24 @@ from notion_python_client.models.page import Page
 
 
 class DatabaseHandler(Handler):
-
     def get_pages(self, database_id: str, filter: Optional[Dict] = None) -> List[Page]:
         """Get all pages from a database that match the filter
 
         Args:
-            database_id (str): The id of the database 
+            database_id (str): The id of the database
                 where the pages should be retrieved from
-            filter (dict, optional): The filter that should be applied. 
+            filter (dict, optional): The filter that should be applied.
                 Defaults to None.
 
         Returns:
             List[Page]: The pages that match the filter
         """
 
-        path = f'/{database_id}/query'
+        path = f"/{database_id}/query"
 
         # Check if filter is provided
         if filter is not None:
-            body = {
-                "filter": filter
-            }
+            body = {"filter": filter}
         else:
             body = None
 

@@ -129,6 +129,11 @@
         "color": "brown"
       }
     },
+    "Select_Without_Value": {
+      "id": "%5Ewxq",
+      "type": "select",
+      "select": null
+    },
     "Date": {
       "id": "dqM%7B",
       "type": "date",
@@ -195,15 +200,13 @@
         }
       ]
     },
-    "Estimated total project time": {
-      "id": "%5E%7Cy%3C",
+    "Used In": {
+      "id": "wkIB",
       "type": "rollup",
       "rollup": {
-        "rollup_property_name": "Days to complete",
-        "relation_property_name": "Tasks",
-        "rollup_property_id": "\\nyY",
-        "relation_property_id": "Y]<y",
-        "function": "sum"
+        "type": "array",
+        "array": [],
+        "function": "show_original"
       }
     }
   },

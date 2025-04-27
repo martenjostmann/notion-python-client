@@ -10,6 +10,6 @@ if TYPE_CHECKING:
 class PropertiesDictBase(BaseModel):
     id: Optional[str] = Field(default=None)
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         """Returns the base property object."""
         return None

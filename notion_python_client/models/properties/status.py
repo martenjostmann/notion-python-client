@@ -76,5 +76,5 @@ class StatusDict(PropertiesDictBase):
     type: Literal["status"] = Field(default="status")
     status: Status
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.status

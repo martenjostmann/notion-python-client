@@ -17,7 +17,7 @@ class Formula(PropertiesBase):
     type: Literal["boolean", "date", "number", "string"]
 
     def create_object(self, property_name: str) -> Dict:
-        """The formula property cannot be updated, 
+        """The formula property cannot be updated,
         so it is not included in the formula object."""
 
         return None
@@ -27,5 +27,5 @@ class FormulaDict(PropertiesDictBase):
     type: Literal["formula"] = Field(default="formula")
     formula: Formula
 
-    def _get_base(self) -> PropertiesBase:
+    def _get_base(self) -> Optional[PropertiesBase]:
         return self.formula
